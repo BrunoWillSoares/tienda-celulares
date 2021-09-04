@@ -4,13 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.Entity;
-
 //import com.fasterxml.jackson.databind.ObjectMapper; // version 2.11.1
 	// import com.fasterxml.jackson.annotation.JsonProperty; // version 2.11.1
 	/* ObjectMapper om = new ObjectMapper();
 	Root root = om.readValue(myJsonString), Root.class); */
-@Entity
+//@Entity
 //@Table(name="TB_PAYMENTMETHOD")
 public class PaymentMethod implements Serializable{
 	

@@ -3,7 +3,7 @@ package com.tienda.apirest.resources;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,9 +48,13 @@ public class CelularResource {
 	 * @PutMapping("/celular") public Celular atualizaCelular(@RequestBody @Valid
 	 * Celular produto) { return produtoRepository.save(produto); }
 	 */
-	 
+	/*
+	 * 401 Unauthorized
+	 * 
+	 * 403 Forbidden
+	 */	
 	@ApiOperation(value="Return Payment Methods")
-	@PutMapping("/celular/buy/payments")
+	@GetMapping("/celular/buy/payments")
 	public List<PaymentMethod> obterFormasPagamento() {
 		return celularBuyBusiness.obterFormasPagamento();
 	}
