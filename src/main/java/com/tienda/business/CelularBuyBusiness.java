@@ -22,17 +22,23 @@ public class CelularBuyBusiness {
 		List<PaymentMethod> paymentMethodsResponse = null;
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders headers = new HttpHeaders();
+		
+		//TODO: Change information source to application.properties for security
+		//TODO: Decrypt from above source
 		headers.set("Authorization", "Bearer APP_USR-6317427424180639-042414-47e969706991d3a442922b0702a0da44-469485398");
 		HttpEntity<?> header = new HttpEntity<Object>(headers);
 		
 		ResponseEntity<List<PaymentMethod> > response = restTemplate.exchange("https://api.mercadopago.com/v1/payment_methods", HttpMethod.GET, header,new ParameterizedTypeReference<List<PaymentMethod>>() {});
 		paymentMethodsResponse = response.getBody();
 		
-		
-		//TODO: Change amex to application.properties for flexibility
+		//TODO: Change information source to application.properties for flexibility
 		for (PaymentMethod method : paymentMethodsResponse) {
-			if(!method.getId().equalsIgnoreCase("amex")) {
-				paymentMethods.add(method);
+			if(!method.getStatus().equalsIgnoreCase("active")) {
+				if(!method.getId().equalsIgnoreCase("amex")) {
+					if(!method.getPayment_type_id().equalsIgnoreCase("atm")) {
+						paymentMethods.add(method);
+					}
+				}
 			}
 		}
 		

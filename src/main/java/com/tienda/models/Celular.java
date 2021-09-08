@@ -28,7 +28,25 @@ public class Celular implements Serializable{
 	@NotNull
 	private BigDecimal valor;
 	
+	@NotNull
+	private String caminhoImagem;
 	
+	
+	
+	public Celular() {
+		super();
+		
+	}
+	public Celular(long id, @NotNull String marca, @NotNull String modelo, @NotNull BigDecimal quantidade,
+			@NotNull BigDecimal valor, @NotNull String caminhoImagem) {
+		super();
+		this.id = id;
+		this.marca = marca;
+		this.modelo = modelo;
+		this.quantidade = quantidade;
+		this.valor = valor;
+		this.caminhoImagem = caminhoImagem;
+	}
 	public long getId() {
 		return id;
 	}
@@ -58,6 +76,12 @@ public class Celular implements Serializable{
 	}
 	public void setValor(BigDecimal valor) {
 		this.valor = valor;
+	}
+	public String getCaminhoImagem() {
+		return caminhoImagem;
+	}
+	public void setCaminhoImagem(String caminhoImagem) {
+		this.caminhoImagem = caminhoImagem;
 	}
 	
 	

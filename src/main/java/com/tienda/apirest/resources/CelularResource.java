@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.tienda.business.CelularBusiness;
 import com.tienda.business.CelularBuyBusiness;
+import com.tienda.models.Celular;
 import com.tienda.models.PaymentMethod;
 
 import io.swagger.annotations.Api;
@@ -20,13 +22,15 @@ import io.swagger.annotations.ApiOperation;
 public class CelularResource {
 	
 	private static CelularBuyBusiness celularBuyBusiness = new CelularBuyBusiness();
+	private static CelularBusiness celularBusiness = new CelularBusiness();
 	
+	
+	  @ApiOperation(value="Returns all phones")
+	  @GetMapping("/celulares") public List<Celular> listaCelulares(){ 
+		  return celularBusiness.obterCelulares(); 
+	  }
+	  
 	/*
-	 * @ApiOperation(value="Returns all phones")
-	 * 
-	 * @GetMapping("/celulares") public List<Celular> listaCelulares(){ return
-	 * produtoRepository.findAll(); }
-	 * 
 	 * @ApiOperation(value="Returns a specific phone")
 	 * 
 	 * @GetMapping("/celular/{id}") public Celular
@@ -47,7 +51,7 @@ public class CelularResource {
 	 * 
 	 * @PutMapping("/celular") public Celular atualizaCelular(@RequestBody @Valid
 	 * Celular produto) { return produtoRepository.save(produto); }
-	 */
+	 */ 
 	/*
 	 * 401 Unauthorized
 	 * 

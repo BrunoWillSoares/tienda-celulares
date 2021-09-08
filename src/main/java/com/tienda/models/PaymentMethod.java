@@ -2,7 +2,6 @@ package com.tienda.models;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Objects;
 
 //import com.fasterxml.jackson.databind.ObjectMapper; // version 2.11.1
 	// import com.fasterxml.jackson.annotation.JsonProperty; // version 2.11.1
@@ -30,22 +29,6 @@ public class PaymentMethod implements Serializable{
 	private List<String> processing_modes;
 	
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		PaymentMethod other = (PaymentMethod) obj;
-		return Objects.equals(id, other.id);
-	}
 
 	public static class CardNumber{
 	    public String validation;
