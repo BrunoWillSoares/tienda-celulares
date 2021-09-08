@@ -4,6 +4,7 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.empty;
 import static org.junit.Assert.assertThat;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class ApiRestApplicationTests {
 		CelularResource resource = new CelularResource();
 		List<PaymentMethod> list = resource.obterFormasPagamento();
 
+		assertThat("Empty list is not expected", list, is(not(empty())));
 		//Just to see what has returned 
 		for (PaymentMethod paymentMethod : list) {
 			System.out.println(paymentMethod.getId() + " - " + paymentMethod.getPayment_type_id());

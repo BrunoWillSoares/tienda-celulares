@@ -26,6 +26,7 @@ public class CelularResource {
 	
 	
 	  @ApiOperation(value="Returns all phones")
+	  @CrossOrigin(origins = "*")
 	  @GetMapping("/celulares") public List<Celular> listaCelulares(){ 
 		  return celularBusiness.obterCelulares(); 
 	  }

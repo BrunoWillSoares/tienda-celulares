@@ -33,7 +33,7 @@ public class CelularBuyBusiness {
 		
 		//TODO: Change information source to application.properties for flexibility
 		for (PaymentMethod method : paymentMethodsResponse) {
-			if(!method.getStatus().equalsIgnoreCase("active")) {
+			if(method.getStatus().equalsIgnoreCase("active")) {
 				if(!method.getId().equalsIgnoreCase("amex")) {
 					if(!method.getPayment_type_id().equalsIgnoreCase("atm")) {
 						paymentMethods.add(method);
