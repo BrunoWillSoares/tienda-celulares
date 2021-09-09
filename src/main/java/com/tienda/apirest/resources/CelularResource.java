@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mercadopago.resources.Preference;
 import com.tienda.business.CelularBusiness;
 import com.tienda.business.CelularBuyBusiness;
 import com.tienda.models.Celular;
@@ -28,7 +30,7 @@ public class CelularResource {
 	  @ApiOperation(value="Returns all phones")
 	  @CrossOrigin(origins = "*")
 	  @GetMapping("/celulares") public List<Celular> listaCelulares(){ 
-		  return celularBusiness.obterCelulares(); 
+		  return celularBusiness.obterCelulares();
 	  }
 	  
 	/*
@@ -62,6 +64,12 @@ public class CelularResource {
 	@GetMapping("/celular/buy/payments")
 	public List<PaymentMethod> obterFormasPagamento() {
 		return celularBuyBusiness.obterFormasPagamento();
+	}
+	
+	@ApiOperation(value="Prepare buy process")
+	@GetMapping("/celular/buy")
+	public Preference comprar(@RequestBody Celular celular) {
+		return celularBuyBusiness.comprar(celular);
 	}
 
 }
