@@ -19,9 +19,9 @@ public class MercadoPagoSDK {
 	private static String SERVER_URL="https://tienda-celulares-frontend.herokuapp.com";
 	//private static String SERVER_URL="http://localhost:4200";
 	
-	private static String SUCCESS_URL="/success.html";
-	private static String FAIL_URL="/fail.html";
-	private static String PENDING_URL="/pending.html";
+	private static String SUCCESS_URL="/Success";
+	private static String FAIL_URL="/Fail";
+	private static String PENDING_URL="/Pending";
 	
 	private static String DEFAULT_CURRENCY = "BRL";
 	private static String authorizationToken = "APP_USR-6317427424180639-042414-47e969706991d3a442922b0702a0da44-469485398";
