@@ -5,15 +5,24 @@ import com.mercadopago.exceptions.MPConfException;
 import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Preference;
 import com.mercadopago.resources.Preference.AutoReturn;
+import com.mercadopago.resources.datastructures.preference.Address;
 import com.mercadopago.resources.datastructures.preference.BackUrls;
 import com.mercadopago.resources.datastructures.preference.ExcludedPaymentMethod;
 import com.mercadopago.resources.datastructures.preference.ExcludedPaymentType;
 import com.mercadopago.resources.datastructures.preference.Item;
+import com.mercadopago.resources.datastructures.preference.Payer;
 import com.mercadopago.resources.datastructures.preference.PaymentMethods;
+import com.mercadopago.resources.datastructures.preference.Phone;
 import com.tienda.models.Celular;
 
 public class MercadoPagoSDK {
 	private static String SERVER_URL="https://tienda-celulares-frontend.herokuapp.com";
+	//private static String SERVER_URL="http://localhost:4200";
+	
+	private static String SUCCESS_URL="/success.html";
+	private static String FAIL_URL="/fail.html";
+	private static String PENDING_URL="/pending.html";
+	
 	private static String DEFAULT_CURRENCY = "BRL";
 	private static String authorizationToken = "APP_USR-6317427424180639-042414-47e969706991d3a442922b0702a0da44-469485398";
 	
@@ -38,21 +47,23 @@ public class MercadoPagoSDK {
 			Preference preference = new Preference();
 			
 			BackUrls backUrls = new BackUrls();
-			backUrls.setSuccess(SERVER_URL);
-			backUrls.setFailure(SERVER_URL);
-			backUrls.setPending(SERVER_URL);
+			backUrls.setSuccess(SERVER_URL + SUCCESS_URL);
+			backUrls.setFailure(SERVER_URL + FAIL_URL);
+			backUrls.setPending(SERVER_URL + PENDING_URL);
 
-			// Cria um item na preferência
 			Item item = new Item();
-			item.setId(celular.getId().toString());
-			item.setTitle(celular.getModelo());
-			item.setDescription(celular.getMarca() + " " + celular.getModelo());
+			//According to given directions
+			item.setId("1234");
+			item.setTitle(celular.getMarca() + " " + celular.getModelo());
+			item.setDescription("Dispositivo móvil de Tienda e-commerce");
 			item.setPictureUrl(SERVER_URL+celular.getCaminhoImagem());
 			item.setCategoryId("celulares1");
 			item.setCurrencyId(DEFAULT_CURRENCY);
 			
 			item.setQuantity(1);
 			item.setUnitPrice(Float.valueOf(celular.getValor().replace(",", ".")));
+			
+			preference.setExternalReference("bruno.p.soares@gmail.com");
 			
 			preference.appendItem(item);
 			preference.setAutoReturn(AutoReturn.all);
@@ -64,6 +75,9 @@ public class MercadoPagoSDK {
 			excludedPayments.setInstallments(6);
 			
 			preference.setPaymentMethods(excludedPayments);
+			
+			
+			preference.setPayer(this.obterPagador());
 			
 			preferencia = preference.save();
 		} catch (MPConfException e) {
@@ -82,7 +96,9 @@ public class MercadoPagoSDK {
 		}
 		
 		System.out.println("\n==============\n"
-				+ "Id_Preferencia: [" +  preferencia.getId() +"] Item:[" + preferencia.getItems().get(0).getTitle() + "] Coletor: " + preferencia.getCollectorId() + " + Client ID: " + preferencia.getClientId() + "- Criado com sucesso. Caminho:" + preferencia.getSandboxInitPoint()
+				+ "Id_Preferencia: [" +  preferencia.getId() +"] Item:[" + preferencia.getItems().get(0).getTitle() +
+				"] Coletor: " + preferencia.getCollectorId() + " + Client ID: " + preferencia.getClientId() + 
+				"- Criado com sucesso. Caminho:" + preferencia.getSandboxInitPoint()
 				+ "\n==============\n");
 		return preferencia;
 	}
@@ -95,6 +111,30 @@ public class MercadoPagoSDK {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	private Payer obterPagador() {
+		Payer payerTest = new Payer();
+		Phone payerPhone = new Phone();
+		Address payerAddress = new Address();
+		
+		payerTest.setName("Lalo");
+		payerTest.setSurname("Landa");
+		
+		payerPhone.setAreaCode("11");
+		payerPhone.setNumber("22223333");
+			
+		payerTest.setPhone(payerPhone);
+		
+		payerTest.setEmail("test_user_63274575@testuser.com");
+		
+		payerAddress.setStreetName("Falsa");
+		payerAddress.setStreetNumber(123);
+		payerAddress.setZipCode("1111");
+		payerTest.setAddress(payerAddress);
+		
+		
+		return payerTest;
 	}
 
 }
