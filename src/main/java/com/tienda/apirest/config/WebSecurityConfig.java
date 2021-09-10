@@ -1,7 +1,7 @@
 package com.tienda.apirest.config;
 
 //@EnableWebSecurity
-public class WebSecurityConfig{
+public class WebSecurityConfig {
 
 	/*
 	 * @Override protected void configure(HttpSecurity http) throws Exception {
@@ -11,10 +11,11 @@ public class WebSecurityConfig{
 	 * @Bean CorsConfigurationSource corsConfigurationSource() {
 	 * UrlBasedCorsConfigurationSource source = new
 	 * UrlBasedCorsConfigurationSource();
-	 * source.registerCorsConfiguration("/celulares", new
+	 * source.registerCorsConfiguration("/celular/buy", new
 	 * CorsConfiguration().applyPermitDefaultValues());
 	 * 
 	 * //http.cors().configurationSource(request -> new
 	 * CorsConfiguration().applyPermitDefaultValues()); return source; }
 	 */
+
 }

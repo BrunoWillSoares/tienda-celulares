@@ -6,7 +6,10 @@ import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.Preference;
 import com.mercadopago.resources.Preference.AutoReturn;
 import com.mercadopago.resources.datastructures.preference.BackUrls;
+import com.mercadopago.resources.datastructures.preference.ExcludedPaymentMethod;
+import com.mercadopago.resources.datastructures.preference.ExcludedPaymentType;
 import com.mercadopago.resources.datastructures.preference.Item;
+import com.mercadopago.resources.datastructures.preference.PaymentMethods;
 import com.tienda.models.Celular;
 
 public class MercadoPagoSDK {
@@ -49,11 +52,17 @@ public class MercadoPagoSDK {
 			item.setCurrencyId(DEFAULT_CURRENCY);
 			
 			item.setQuantity(1);
-			item.setUnitPrice(celular.getValor().floatValue());
+			item.setUnitPrice(Float.valueOf(celular.getValor().replace(",", ".")));
 			
 			preference.appendItem(item);
 			preference.setAutoReturn(AutoReturn.all);
 			preference.setBackUrls(backUrls);
+			
+			PaymentMethods excludedPayments = new PaymentMethods();
+			excludedPayments.appendExcludedPaymentMethod(new ExcludedPaymentMethod("amex"));
+			excludedPayments.appendExcludedPaymentTypes(new ExcludedPaymentType("atm"));
+			
+			preference.setPaymentMethods(excludedPayments);
 			
 			preferencia = preference.save();
 		} catch (MPConfException e) {

@@ -4,20 +4,20 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.mercadopago.resources.Preference;
 import com.tienda.business.CelularBusiness;
 import com.tienda.business.CelularBuyBusiness;
 import com.tienda.models.Celular;
 import com.tienda.models.PaymentMethod;
+import com.tienda.models.Preferencia;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(value="/api")
 @Api(value="API REST Celulares")
@@ -61,14 +61,17 @@ public class CelularResource {
 	 * 403 Forbidden
 	 */	
 	@ApiOperation(value="Return Payment Methods")
+	@CrossOrigin(origins = "*")
 	@GetMapping("/celular/buy/payments")
 	public List<PaymentMethod> obterFormasPagamento() {
 		return celularBuyBusiness.obterFormasPagamento();
 	}
 	
 	@ApiOperation(value="Prepare buy process")
-	@GetMapping("/celular/buy")
-	public Preference comprar(@RequestBody Celular celular) {
+	@CrossOrigin(origins = "*")
+	@PostMapping("/celular/buy")
+	public Preferencia comprar(@RequestBody Celular celular) {
+		System.out.println(celular.toString());
 		return celularBuyBusiness.comprar(celular);
 	}
 

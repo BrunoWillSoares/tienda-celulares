@@ -6,6 +6,7 @@ public class Preferencia {
 	private String id;
 	private String client_id;
 	private String collector_id;
+	private String init_point;
 	private String date_created;
 	private List<Item> items;
 	public String getId() {
@@ -37,6 +38,12 @@ public class Preferencia {
 	}
 	public void setItems(List<Item> items) {
 		this.items = items;
+	}
+	public String getInit_point() {
+		return init_point;
+	}
+	public void setInit_point(String init_point) {
+		this.init_point = init_point;
 	}
 
 	

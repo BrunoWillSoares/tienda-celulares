@@ -1,13 +1,20 @@
 package com.tienda.business;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.mercadopago.resources.Preference;
 import com.tienda.models.Celular;
+import com.tienda.models.Item;
 import com.tienda.models.PaymentMethod;
+import com.tienda.models.Preferencia;
 
 public class CelularBuyBusiness {
+	
+	private static SimpleDateFormat SDF = new SimpleDateFormat("dd/MM/yyyy");
+	
+	private static boolean PRODUCAO = false;
 
 	private static MercadoPagoAPI apiMercadoPago = new MercadoPagoAPI();
 	private static MercadoPagoSDK sdkMercadoPago = new MercadoPagoSDK();
@@ -35,12 +42,35 @@ public class CelularBuyBusiness {
 	}
 	
 	public Preference criarPreferencia(Celular celular) {
-		
 		return sdkMercadoPago.criarPreferencia(celular);
 	}
 
-	public Preference comprar(Celular celular) {
-		return this.criarPreferencia(celular);
+	public Preferencia comprar(Celular celular) {
+		Preference preference = this.criarPreferencia(celular);
+		Preferencia preferencia = new Preferencia();
+		if(preference != null && preference.getId() != null 
+				&& preference.getCollectorId() !=null
+				&& preference.getClientId() != null
+				&& preference.getDateCreated() != null) {
+			preferencia.setId(preference.getId());
+			preferencia.setCollector_id(preference.getCollectorId().toString());
+			preferencia.setClient_id(preference.getClientId().toString());
+			preferencia.setDate_created(SDF.format(preference.getDateCreated()));
+			
+			Item item = new Item();
+			item.setId(preference.getItems().get(0).getId());
+			List<Item> itens = new ArrayList<Item>();
+			itens.add(item);
+			preferencia.setItems(itens);
+			
+			if(PRODUCAO) {
+				preferencia.setInit_point(preference.getInitPoint());
+			}else {
+				preferencia.setInit_point(preference.getSandboxInitPoint());
+			}
+			
+		}
+		return preferencia;
 	}
 
 }
