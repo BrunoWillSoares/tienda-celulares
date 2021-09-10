@@ -61,6 +61,7 @@ public class MercadoPagoSDK {
 			PaymentMethods excludedPayments = new PaymentMethods();
 			excludedPayments.appendExcludedPaymentMethod(new ExcludedPaymentMethod("amex"));
 			excludedPayments.appendExcludedPaymentTypes(new ExcludedPaymentType("atm"));
+			excludedPayments.setInstallments(6);
 			
 			preference.setPaymentMethods(excludedPayments);
 			
