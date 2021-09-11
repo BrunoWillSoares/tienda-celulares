@@ -74,5 +74,6 @@ public class CelularResource {
 		System.out.println(celular.toString());
 		return celularBuyBusiness.comprar(celular);
 	}
+	
 
 }

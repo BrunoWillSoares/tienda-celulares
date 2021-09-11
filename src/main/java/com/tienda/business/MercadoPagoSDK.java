@@ -17,6 +17,7 @@ import com.tienda.models.Celular;
 
 public class MercadoPagoSDK {
 	private static String SERVER_URL="https://tienda-celulares-frontend.herokuapp.com";
+	private static String WEBHOOK_ENDPOINT = "/webhook";
 	//private static String SERVER_URL="http://localhost:4200";
 	
 	private static String SUCCESS_URL="/Success";
@@ -80,6 +81,7 @@ public class MercadoPagoSDK {
 			
 			preference.setPayer(this.obterPagador());
 			
+			preference.setNotificationUrl(SERVER_URL + WEBHOOK_ENDPOINT);
 			
 			preferencia = preference.save();
 		} catch (MPConfException e) {
