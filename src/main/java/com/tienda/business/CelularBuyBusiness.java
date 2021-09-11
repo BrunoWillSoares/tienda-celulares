@@ -14,7 +14,7 @@ public class CelularBuyBusiness {
 	
 	private static SimpleDateFormat SDF = new SimpleDateFormat("dd/MM/yyyy");
 	
-	private static boolean PRODUCAO = false;
+	private static boolean PRODUCAO = true;
 
 	private static MercadoPagoAPI apiMercadoPago = new MercadoPagoAPI();
 	private static MercadoPagoSDK sdkMercadoPago = new MercadoPagoSDK();

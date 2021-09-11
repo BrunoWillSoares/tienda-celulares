@@ -25,13 +25,14 @@ public class MercadoPagoSDK {
 	
 	private static String DEFAULT_CURRENCY = "BRL";
 	private static String authorizationToken = "APP_USR-6317427424180639-042414-47e969706991d3a442922b0702a0da44-469485398";
-	
+	private static String integrator_id = "dev_24c65fb163bf11ea96500242ac130004";
 	
 	
 	public MercadoPagoSDK() {
 		super();
 		try {
 			MercadoPago.SDK.setAccessToken(authorizationToken);
+			MercadoPago.SDK.setIntegratorId(integrator_id);
 		} catch (MPConfException e) {
 			e.printStackTrace();
 		}
@@ -78,6 +79,7 @@ public class MercadoPagoSDK {
 			
 			
 			preference.setPayer(this.obterPagador());
+			
 			
 			preferencia = preference.save();
 		} catch (MPConfException e) {
